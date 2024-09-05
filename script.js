@@ -111,10 +111,14 @@ async function deleteExpense(id) {
 }
 
 
-function deleteAll() {
+async function deleteAll() {
     // Chiede conferma all'utente
     const confirm = window.confirm('Sei sicuro di voler eliminare tutte le tue spese?');
     if (confirm) {
+        await fetch(`http://localhost:8080/expenses/all`, {
+            method: 'DELETE'
+        });
+        fetchExpenses();
 
     }
 }
