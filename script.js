@@ -6,7 +6,6 @@ const btnDeleteAll = document.getElementById('btnDeleteAll');
 const newDate = document.querySelector('.newDate');
 const newMovement = document.querySelector('.newMovement');
 const newCash = document.querySelector('.newCash');
-const newCategory = document.querySelector('.newCategory');
 const categoriesDropdown = document.querySelector('.categoriesDropdown');
 
 btnAdd.addEventListener('click', addExpense);
@@ -19,7 +18,6 @@ async function fetchCategories() {
     const response = await fetch(apiUrl);
     const data = await response.json();
     categories = data;
-    console.log(categories);
     for (let i = 0; i < categories.length; i++) {
         const template = buildCategoriesHTML(categories[i]);
         categoriesDropdown.innerHTML += template;
@@ -27,7 +25,7 @@ async function fetchCategories() {
 }
 
 function buildCategoriesHTML(category) {
-    return `<option id="${category.id}">${category.categoryType}</option>`
+    return `<option value="${category.id}">${category.categoryType}</option>`
 }
 
 
@@ -78,7 +76,7 @@ function addExpense() {
     let date = newDate.value;
     let movement = newMovement.value.trim();
     let cash = newCash.value;
-    let category = newCategory.value;
+    let category = categoriesDropdown.value;
 
     (async () => {
 
@@ -97,7 +95,6 @@ function addExpense() {
         });
         const content = await rawResponse.json();
 
-        console.log(content);
         fetchExpenses();
     })();
 
@@ -105,7 +102,7 @@ function addExpense() {
     newDate.value = '';
     newMovement.value = '';
     newCash.value = '';
-    newCategory.value = '';
+    categoriesDropdown.value = '';
 }
 
 
