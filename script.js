@@ -7,6 +7,9 @@ const newDate = document.querySelector('.newDate');
 const newMovement = document.querySelector('.newMovement');
 const newCash = document.querySelector('.newCash');
 const categoriesDropdown = document.querySelector('.categoriesDropdown');
+const addPopup = document.getElementById("addPopup");
+const cancel_button = document.querySelector('.cancel-button');
+const open_button = document.querySelector('.open-button');
 
 btnAdd.addEventListener('click', addExpense);
 
@@ -61,6 +64,7 @@ function buildTemplateHTML(expense) {
     let date = new Date(expense.date).toLocaleDateString();
     return `
     <li class="expense-item">
+        <div class="expense-modify" id="${expense.id}"><img src="images/check.svg"></div>
         <p class="expense-text">${date}</p>
         <p class="expense-text">${expense.movement}</p>
         <p class="expense-text">${expense.cash}</p>
@@ -93,8 +97,8 @@ function addExpense() {
                 category_id: category
             })
         });
-        const content = await rawResponse.json();
 
+        toggleAddButton();
         fetchExpenses();
     })();
 
@@ -122,6 +126,7 @@ async function deleteExpense(id) {
     await fetch(`http://localhost:8080/expenses/${id}`, {
         method: 'DELETE'
     });
+    toggleAddButton()
     fetchExpenses();
 }
 
@@ -133,7 +138,27 @@ async function deleteAll() {
         await fetch(`http://localhost:8080/expenses/all`, {
             method: 'DELETE'
         });
+
+        toggleAddButton()
         fetchExpenses();
 
+    }
+}
+
+let open = false;
+
+function toggleAddButton() {
+    if (open == false) {
+        addPopup.style.display = "block";
+        cancel_button.style.display = "block";
+        open_button.style.display = "none";
+
+        open = true;
+    }
+    else {
+        addPopup.style.display = "none";
+        cancel_button.style.display = "none";
+        open_button.style.display = "block";
+        open = false;
     }
 }

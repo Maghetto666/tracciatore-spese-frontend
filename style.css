@@ -35,14 +35,15 @@ header {
 }
 
 h1 {
-    flex-grow: 1;
     color: black;
     text-align: center;
 }
 
 .panel {
     display: flex;
-    padding: 4px;
+    flex-direction: column;
+    max-height: 100px;
+    padding: 16px;
     border-radius: 16px;
     background-color: rgb(95, 198, 173);
 }
@@ -59,9 +60,13 @@ h1 {
     background-color: rgb(255, 255, 255);
     margin: 16px;
     border-radius: 16px;
-
 }
-
+.expense-modify {
+    cursor: pointer;
+    padding: 16px;
+    border-radius: 16px 0px 0px 16px;
+    background-color: rgb(217, 255, 102);
+}
 .expense-check {
     cursor: pointer;
     padding: 16px;
@@ -86,6 +91,11 @@ input {
     border-radius: 8px;
     border: none;
     flex-grow: 1;
+    margin: 5px;
+}
+
+select {
+    margin: 5px;
 }
 
 button {
@@ -104,4 +114,40 @@ button {
     border-radius: 8px;
     border: none;
     flex-grow: 1;
-  }
+}
+
+.add-popup {
+    display: none;
+}
+
+.add-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(210, 239, 232);
+}
+
+.cancel-button {
+    background-color: red;
+    display: none;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.open-button {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.close-img {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.CRUD-buttons {
+    padding: 16px;
+    display: flex;
+    justify-content: space-evenly;
+
+}
