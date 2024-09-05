@@ -92,26 +92,23 @@ function addExpense() {
 
 
 function activateChecks() {
-
     const checks = document.querySelectorAll('.expense-check');
 
     for (let i = 0; i < checks.length; i++) {
-
         checks[i].addEventListener('click', function () {
             let id = checks[i].id;
-            console.log(1);
-            (async () => {
-                console.log(2);
-                await fetch(`http://localhost:8080/expenses/${id}`, {
-                    method: 'DELETE'
-                })
-                console.log(3);
-            });
-            fetchExpenses();
+            deleteExpense(id);
         });
     };
 }
 
+
+async function deleteExpense(id) {
+    await fetch(`http://localhost:8080/expenses/${id}`, {
+        method: 'DELETE'
+    });
+    fetchExpenses();
+}
 
 
 function deleteAll() {
