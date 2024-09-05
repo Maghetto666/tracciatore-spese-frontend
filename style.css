@@ -53,10 +53,18 @@ h1 {
     font-weight: bold;
 }
 
+#expenses-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .expense-item {
     display: flex;
     align-items: center;
     list-style-type: none;
+    width: 30vw;
     background-color: rgb(255, 255, 255);
     margin: 16px;
     border-radius: 16px;
@@ -74,9 +82,21 @@ h1 {
     background-color: rgb(217, 255, 102);
 }
 
-.expense-text {
-    padding: 16px;
-    flex-grow: 1;
+.expense-text-date {
+    padding: 8px 16px;
+    width: 6vw;
+}
+.expense-text-movement {
+    padding: 8px 16px;
+    width: 10vw;
+}
+.expense-text-cash {
+    padding: 8px 16px;
+    width: 8vw;
+}
+.expense-text-category {
+    padding: 8px 16px;
+    width: 6vw;
 }
 
 .add-expense {
@@ -131,18 +151,18 @@ button {
 .cancel-button {
     background-color: red;
     display: none;
-    max-width: 50px;
-    max-height: 50px;
+    width: 96px;
+    height: 96px;
 }
 
 .open-button {
-    max-width: 50px;
-    max-height: 50px;
+    width: 96px;
+    height: 96px;
 }
 
-.close-img {
-    max-width: 20px;
-    max-height: 20px;
+#btnDeleteAll {
+    width: 96px;
+    height: 96px;
 }
 
 .CRUD-buttons {

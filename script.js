@@ -64,11 +64,11 @@ function buildTemplateHTML(expense) {
     let date = new Date(expense.date).toLocaleDateString();
     return `
     <li class="expense-item">
-        <div class="expense-modify" id="${expense.id}"><img src="images/check.svg"></div>
-        <p class="expense-text">${date}</p>
-        <p class="expense-text">${expense.movement}</p>
-        <p class="expense-text">${expense.cash}</p>
-        <p class="expense-text">${categoryType}</p>
+        <div class="expense-modify" id="${expense.id}"><img src="images/edit.svg"></div>
+        <p class="expense-text-date">${date}</p>
+        <p class="expense-text-movement">${expense.movement}</p>
+        <p class="expense-text-cash">${expense.cash}</p>
+        <p class="expense-text-category">${categoryType}</p>
         <div class="expense-check" id="${expense.id}"><img src="images/check.svg"></div>
     </li>
     `;
