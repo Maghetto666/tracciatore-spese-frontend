@@ -11,7 +11,7 @@ const newCategory = document.querySelector('.newCategory');
 btnAdd.addEventListener('click', addExpense);
 
 
-fetchExpenses()
+fetchExpenses();
 
 async function fetchExpenses() {
     const apiUrl = 'http://localhost:8080/expenses';
@@ -40,7 +40,7 @@ async function fetchExpenses() {
     }
 }
 
-// Funzione che genera l'HTML per attività expenses
+
 function buildTemplateHTML(expense) {
     const category = expense.category;
     categoryType = category.categoryType
@@ -56,7 +56,7 @@ function buildTemplateHTML(expense) {
     `;
 }
 
-// Funzione che aggiunge una attività alla lista
+
 function addExpense() {
 
     let date = newDate.value;
@@ -64,16 +64,8 @@ function addExpense() {
     let cash = newCash.value;
     let category = newCategory.value;
 
-    let newExpense = {
-        date: date,
-        movement: movement,
-        cash: cash,
-        category: category
-    };
-
-    console.log(newExpense);
-
     (async () => {
+
         const rawResponse = await fetch('http://localhost:8080/expenses', {
             method: 'POST',
             headers: {
@@ -84,57 +76,39 @@ function addExpense() {
                 date: date,
                 movement: movement,
                 cash: cash,
-                category: category
-             })
+                category_id: category
+            })
         });
         const content = await rawResponse.json();
 
         console.log(content);
+        fetchExpenses();
     })();
-            
-        // Cancella test
-        date.value = '';
-        movement.value = '';
-        cash.value = '';
-        category.value = '';
 
-    
+    // Cancella inputs
+    newDate.value = '';
+    newMovement.value = '';
+    newCash.value = '';
+    newCategory.value = '';
 }
 
 // Funzione che abilita le checkbox
 function activateChecks() {
     // Recupera tutte le checkbox della pagina
-    const checks = document.querySelectorAll('.todo-check');
+    const checks = document.querySelectorAll('.expense-check');
     // Le cicla
     for (let i = 0; i < checks.length; i++) {
         // Ad ogni elemento associa un listener
         checks[i].addEventListener('click', function () {
-            // log operazione
-            const now = Date.now();
-            opLogs.push(now + ' - ' + 'eliminata attività: ' + activities[i]);
-            console.log(opLogs[opLogs.length - 1]);
-            // Elimina dalla lista
-            activities.splice(i, 1);
-            // Aggiorna local storage
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(activities));
-            // Update della lista
-            showContent();
         });
     }
 }
 
-// Funzione che elimina tutte le attività pending
+
 function deleteAll() {
     // Chiede conferma all'utente
     const confirm = window.confirm('Sei sicuro di voler eliminare tutte le tue spese?');
     if (confirm) {
-        // log operazione
-        const now = Date.now();
-        opLogs.push(now + ' - ' + 'eliminate tutte le spese');
-        console.log(opLogs[opLogs.length - 1]);
-        // Procede all'eliminazione
-        activities = [];
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(activities));
-        showContent();
+
     }
 }
