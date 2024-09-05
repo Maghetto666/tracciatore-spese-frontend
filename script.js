@@ -7,11 +7,29 @@ const newDate = document.querySelector('.newDate');
 const newMovement = document.querySelector('.newMovement');
 const newCash = document.querySelector('.newCash');
 const newCategory = document.querySelector('.newCategory');
+const categoriesDropdown = document.querySelector('.categoriesDropdown');
 
 btnAdd.addEventListener('click', addExpense);
 
-
+fetchCategories();
 fetchExpenses();
+
+async function fetchCategories() {
+    const apiUrl = 'http://localhost:8080/categories';
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    categories = data;
+    console.log(categories);
+    for (let i = 0; i < categories.length; i++) {
+        const template = buildCategoriesHTML(categories[i]);
+        categoriesDropdown.innerHTML += template;
+    }
+}
+
+function buildCategoriesHTML(category) {
+    return `<option id="${category.id}">${category.categoryType}</option>`
+}
+
 
 async function fetchExpenses() {
     const apiUrl = 'http://localhost:8080/expenses';
