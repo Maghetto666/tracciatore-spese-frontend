@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>VIZZY WEBAPP</title>
+    <link rel="icon" href="images/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <header class="panel">
+            <h1>VIZZY</h1>
+            <h2>WebApp di tracciamento spese</h2>
+            <button id="btnDeleteAll" onclick="deleteAll()">
+                <img src="images/trash.svg">
+            </button>
+        </header>
+
+
+        <main>
+            <p class="empty-list-msg">È arrivato il momento di spendere un po' di soldi...</p>
+
+            <ul id="expenses-list">
+            </ul>
+
+
+            <div class="panel add-expense">
+                <input type="text" placeholder="Aggiungi una spesa...">
+                <button id="btnAdd">
+                    <img src="images/add.svg">
+                </button>
+            </div>
+        </main>
+    </div>
+    <!-- Collegamento a javascript -->
+    <script src="script.js"></script>
+</body>
+
+</html>

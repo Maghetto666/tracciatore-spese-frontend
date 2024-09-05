@@ -1,0 +1,97 @@
+/*
+COLOR PALETTE
+lightgreen: rgb(210, 239, 232)
+green: rgb(95, 198, 173)
+yellow: rgb(217, 255, 102)
+blue: rgb(52, 75, 201)
+*/
+
+/* Reset css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 540px;
+}
+
+main {
+    padding: 16px;
+}
+
+body {
+    padding: 16px;
+    font-family: "Inconsolata", monospace;
+    background-color: rgb(210, 239, 232);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    flex-grow: 1;
+    color: black;
+    text-align: center;
+}
+
+.panel {
+    display: flex;
+    padding: 4px;
+    border-radius: 16px;
+    background-color: rgb(95, 198, 173);
+}
+
+.empty-list-msg {
+    text-align: center;
+    font-weight: bold;
+}
+
+.expense-item {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    background-color: rgb(255, 255, 255);
+    margin: 16px;
+    border-radius: 16px;
+
+}
+
+.expense-check {
+    cursor: pointer;
+    padding: 16px;
+    border-radius: 0px 16px 16px 0px;
+    background-color: rgb(217, 255, 102);
+}
+
+.expense-text {
+    padding: 16px;
+    flex-grow: 1;
+}
+
+.add-expense {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+input {
+    font-size: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    border: none;
+    flex-grow: 1;
+}
+
+button {
+    cursor: pointer;
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    background-color: rgb(217, 255, 102);
+}
