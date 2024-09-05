@@ -17,9 +17,7 @@ async function fetchExpenses() {
     const apiUrl = 'http://localhost:8080/expenses';
     const response = await fetch(apiUrl);
     const data = await response.json();
-
     expenses = data;
-    console.log(expenses);
 
     expensesList.innerHTML = '';
 
@@ -51,7 +49,7 @@ function buildTemplateHTML(expense) {
         <p class="expense-text">${expense.movement}</p>
         <p class="expense-text">${expense.cash}</p>
         <p class="expense-text">${categoryType}</p>
-        <div class="expense-check"><img src="images/check.svg"></div>
+        <div class="expense-check" id="${expense.id}"><img src="images/check.svg"></div>
     </li>
     `;
 }
@@ -85,24 +83,35 @@ function addExpense() {
         fetchExpenses();
     })();
 
-    // Cancella inputs
+
     newDate.value = '';
     newMovement.value = '';
     newCash.value = '';
     newCategory.value = '';
 }
 
-// Funzione che abilita le checkbox
+
 function activateChecks() {
-    // Recupera tutte le checkbox della pagina
+
     const checks = document.querySelectorAll('.expense-check');
-    // Le cicla
+
     for (let i = 0; i < checks.length; i++) {
-        // Ad ogni elemento associa un listener
+
         checks[i].addEventListener('click', function () {
+            let id = checks[i].id;
+            console.log(1);
+            (async () => {
+                console.log(2);
+                await fetch(`http://localhost:8080/expenses/${id}`, {
+                    method: 'DELETE'
+                })
+                console.log(3);
+            });
+            fetchExpenses();
         });
-    }
+    };
 }
+
 
 
 function deleteAll() {
