@@ -18,7 +18,10 @@ const add_cancel_button = document.querySelector('.add-cancel-button');
 const edit_cancel_button = document.querySelector('.edit-cancel-button');
 const open_button = document.querySelector('.open-button');
 
+let modify_id = 0;
+
 btnAdd.addEventListener('click', addExpense);
+btnEdit.addEventListener('click', modifyExpense);
 
 fetchCategories();
 fetchExpenses();
@@ -51,9 +54,15 @@ async function fetchExpenses() {
 
         emptyListMsg.style.display = 'block';
         btnDeleteAll.style.visibility = 'hidden';
+        addPopup.style.display = "block";
+        add_cancel_button.style.display = "none";
+        open_button.style.display = "none";
     } else {
         emptyListMsg.style.display = 'none';
         btnDeleteAll.style.visibility = 'visible';
+        addPopup.style.display = "none";
+        add_cancel_button.style.display = "none";
+        open_button.style.display = "block";
 
         for (let i = 0; i < expenses.length; i++) {
             const template = buildTemplateHTML(expenses[i]);
@@ -133,8 +142,10 @@ function activateEdits() {
             let id = checks[i].id;
             toggleEditButtons();
             fillEditFields(id);
+            modify_id = id;
         });
     };
+    
 }
 
 async function deleteExpense(id) {
@@ -145,15 +156,7 @@ async function deleteExpense(id) {
     fetchExpenses();
 }
 
-async function modifyExpense(id) {
-    /*
-    await fetch(`http://localhost:8080/expenses/${id}`, {
-        method: 'PUT'
-    });
-    */
-    toggleEditButtons()
-    fetchExpenses();
-}
+
 
 
 async function deleteAll() {
@@ -216,7 +219,7 @@ async function fillEditFields(id) {
     const data = await response.json();
     expense = data;
 
-    const category = expense.category  ;
+    const category = expense.category;
     categoryType = category.id;
     let date = expense.date;
     let editDate = convert(date);
@@ -232,4 +235,23 @@ async function fillEditFields(id) {
     editNewMovement.value = expense.movement;
     editNewCash.value = expense.cash;
     editCategoriesDropdown.value = categoryType;
+}
+
+async function modifyExpense() {
+        await fetch(`http://localhost:8080/expenses/${modify_id}`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            date: editNewDate.value,
+            movement: editNewMovement.value,
+            cash: editNewCash.value,
+            category_id: editCategoriesDropdown.value
+        })
+    });
+        
+    toggleEditButtons()
+    fetchExpenses();
 }
