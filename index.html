@@ -26,7 +26,9 @@
 
             <div class="CRUD-buttons">
                 <button class="open-button" onclick="toggleAddButton()"><img src="images/add.svg"></button>
-                <button class="cancel-button" onclick="toggleAddButton()"><img class="close-img"
+                <button class="add-cancel-button" onclick="toggleAddButton()"><img class="close-img"
+                        src="images/close.svg"></button>
+                <button class="edit-cancel-button" onclick="toggleEditButtons()"><img class="close-img"
                         src="images/close.svg"></button>
                 <button id="btnDeleteAll" onclick="deleteAll()">
                     <img class="trash" src="images/trash.svg">
@@ -42,6 +44,17 @@
                     <button id="btnAdd"><img src="images/add.svg"></button>
                 </div>
             </div>
+
+            <div class="modify-popup" id="modifyPopup">
+                <div class="modify-container">
+                    <input type="date" class="editNewDate" placeholder="Quando?" required>
+                    <input type="text" class="editNewMovement" placeholder="Cos'hai fatto?" required>
+                    <input type="number" class="editNewCash" placeholder="Quanto hai speso?" required>
+                    <select class="editCategoriesDropdown"></select>
+                    <button id="btnEdit"><img src="images/edit.svg"></button>
+                </div>
+            </div>
+
         </main>
     </div>
 

@@ -1,4 +1,5 @@
 const btnAdd = document.getElementById('btnAdd');
+const btnEdit = document.getElementById('btnEdit');
 const inputText = document.querySelector('input');
 const expensesList = document.getElementById('expenses-list');
 const emptyListMsg = document.querySelector('.empty-list-msg');
@@ -7,8 +8,14 @@ const newDate = document.querySelector('.newDate');
 const newMovement = document.querySelector('.newMovement');
 const newCash = document.querySelector('.newCash');
 const categoriesDropdown = document.querySelector('.categoriesDropdown');
+const editNewDate = document.querySelector('.editNewDate');
+const editNewMovement = document.querySelector('.editNewMovement');
+const editNewCash = document.querySelector('.editNewCash');
+const editCategoriesDropdown = document.querySelector('.editCategoriesDropdown');
 const addPopup = document.getElementById("addPopup");
-const cancel_button = document.querySelector('.cancel-button');
+const modifyPopup = document.getElementById("modifyPopup");
+const add_cancel_button = document.querySelector('.add-cancel-button');
+const edit_cancel_button = document.querySelector('.edit-cancel-button');
 const open_button = document.querySelector('.open-button');
 
 btnAdd.addEventListener('click', addExpense);
@@ -24,13 +31,13 @@ async function fetchCategories() {
     for (let i = 0; i < categories.length; i++) {
         const template = buildCategoriesHTML(categories[i]);
         categoriesDropdown.innerHTML += template;
+        editCategoriesDropdown.innerHTML += template;
     }
 }
 
 function buildCategoriesHTML(category) {
     return `<option value="${category.id}">${category.categoryType}</option>`
 }
-
 
 async function fetchExpenses() {
     const apiUrl = 'http://localhost:8080/expenses';
@@ -54,9 +61,9 @@ async function fetchExpenses() {
         }
 
         activateChecks();
+        activateEdits();
     }
 }
-
 
 function buildTemplateHTML(expense) {
     const category = expense.category;
@@ -74,9 +81,7 @@ function buildTemplateHTML(expense) {
     `;
 }
 
-
 function addExpense() {
-
     let date = newDate.value;
     let movement = newMovement.value.trim();
     let cash = newCash.value;
@@ -121,6 +126,16 @@ function activateChecks() {
     };
 }
 
+function activateEdits() {
+    const checks = document.querySelectorAll('.expense-modify');
+    for (let i = 0; i < checks.length; i++) {
+        checks[i].addEventListener('click', function () {
+            let id = checks[i].id;
+            toggleEditButtons();
+            fillEditFields(id);
+        });
+    };
+}
 
 async function deleteExpense(id) {
     await fetch(`http://localhost:8080/expenses/${id}`, {
@@ -130,9 +145,18 @@ async function deleteExpense(id) {
     fetchExpenses();
 }
 
+async function modifyExpense(id) {
+    /*
+    await fetch(`http://localhost:8080/expenses/${id}`, {
+        method: 'PUT'
+    });
+    */
+    toggleEditButtons()
+    fetchExpenses();
+}
+
 
 async function deleteAll() {
-    // Chiede conferma all'utente
     const confirm = window.confirm('Sei sicuro di voler eliminare tutte le tue spese?');
     if (confirm) {
         await fetch(`http://localhost:8080/expenses/all`, {
@@ -145,20 +169,67 @@ async function deleteAll() {
     }
 }
 
-let open = false;
+let isAddOpen = false;
+let isModifyOpen = false;
 
 function toggleAddButton() {
-    if (open == false) {
+    if (isAddOpen == false) {
         addPopup.style.display = "block";
-        cancel_button.style.display = "block";
+        add_cancel_button.style.display = "block";
         open_button.style.display = "none";
 
-        open = true;
+        isAddOpen = true;
+        isModifyOpen = true;
     }
     else {
         addPopup.style.display = "none";
-        cancel_button.style.display = "none";
+        add_cancel_button.style.display = "none";
         open_button.style.display = "block";
-        open = false;
+        isAddOpen = false;
+        isModifyOpen = false;
     }
+}
+
+function toggleEditButtons() {
+
+    if (isModifyOpen == false) {
+
+        modifyPopup.style.display = "block";
+        edit_cancel_button.style.display = "block";
+        open_button.style.display = "none";
+        isModifyOpen = true;
+        isAddOpen = true;
+    }
+    else {
+
+        modifyPopup.style.display = "none";
+        edit_cancel_button.style.display = "none";
+        open_button.style.display = "block";
+        isModifyOpen = false;
+        isAddOpen = false;
+    }
+}
+
+async function fillEditFields(id) {
+    const apiUrl = `http://localhost:8080/expenses/${id}`;
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    expense = data;
+
+    const category = expense.category  ;
+    categoryType = category.id;
+    let date = expense.date;
+    let editDate = convert(date);
+    
+    function convert(oldDate) {
+        var date = new Date(oldDate),
+          mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+          day = ("0" + date.getDate()).slice(-2);
+        return [date.getFullYear(), mnth, day].join("-");
+      }
+
+    editNewDate.value = editDate;
+    editNewMovement.value = expense.movement;
+    editNewCash.value = expense.cash;
+    editCategoriesDropdown.value = categoryType;
 }

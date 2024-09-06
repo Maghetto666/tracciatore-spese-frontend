@@ -69,12 +69,14 @@ h1 {
     margin: 16px;
     border-radius: 16px;
 }
+
 .expense-modify {
     cursor: pointer;
     padding: 16px;
     border-radius: 16px 0px 0px 16px;
     background-color: rgb(217, 255, 102);
 }
+
 .expense-check {
     cursor: pointer;
     padding: 16px;
@@ -86,14 +88,17 @@ h1 {
     padding: 8px 16px;
     width: 6vw;
 }
+
 .expense-text-movement {
     padding: 8px 16px;
     width: 10vw;
 }
+
 .expense-text-cash {
     padding: 8px 16px;
     width: 8vw;
 }
+
 .expense-text-category {
     padding: 8px 16px;
     width: 6vw;
@@ -136,6 +141,16 @@ button {
     flex-grow: 1;
 }
 
+.editCategoriesDropdown {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    border: none;
+    flex-grow: 1;
+}
+
 .add-popup {
     display: none;
 }
@@ -148,7 +163,26 @@ button {
     background-color: rgb(210, 239, 232);
 }
 
-.cancel-button {
+.modify-popup {
+    display: none;
+}
+
+.modify-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(210, 239, 232);
+}
+
+.add-cancel-button {
+    background-color: red;
+    display: none;
+    width: 96px;
+    height: 96px;
+}
+
+.edit-cancel-button {
     background-color: red;
     display: none;
     width: 96px;
